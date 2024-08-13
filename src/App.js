@@ -1,25 +1,74 @@
 import logo from './logo.svg';
 import './App.css';
-
+import Header from './Header';
+import{createBrowserRouter, Outlet, RouterProvider} from "react-router-dom"
+import Body from './Body';
+import Singlecorrect from './Singlecorrect';
+import Truefalse from './Truefalse';
+import { Provider } from 'react-redux';
+import appstore from './store/appstore';
+   const Applayout=()=>{
+        return (
+          <div >
+               <Header />
+               <Outlet />
+          </div>
+        )
+   }
+ const approuter=createBrowserRouter([
+      {
+        path:'/',
+        element:<Applayout />,
+      children:[
+     {
+      path:'/',
+      element:<Body/>
+     },
+     {
+      path:'/singlecorrect',
+      element: <Singlecorrect/>
+     },
+     {
+       path:'/truefalse',
+       element: <Truefalse/>
+     }  
+  ],
+}
+      
+ ])
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <> 
+        {/* <Header /> */}
+        
+        <Provider store={appstore} > 
+         <RouterProvider router={approuter} />
+         </Provider>
+        
+    </>
+     
   );
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
