@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Showscorecard from "../Showscorecard";
  const quizeslice=createSlice({
       name:'quize',
       initialState:{
@@ -6,7 +7,9 @@ import { createSlice } from "@reduxjs/toolkit";
         items2:[],
         score:0,
         isTimerActive:false,
-        isQuizFinished:false
+        isQuizFinished:false,
+        countquestionforscore:{},
+        Showscorefinal:true
       },
       reducers:{
         addItem1:(state, action)=>{
@@ -16,7 +19,12 @@ import { createSlice } from "@reduxjs/toolkit";
           state.items2.push(action.payload)
         },
         addscore:(state, action)=>{
-           state.score+=action.payload;
+              if(state.countquestionforscore[action.payload]){
+               state.countquestionforscore[action.payload]= ++state.countquestionforscore[action.payload];
+          } else{
+                state.score+=10;
+                state.countquestionforscore[action.payload]= 1;
+          }
         },
         timeractive:(state)=>{
           state.isTimerActive=!state.isTimerActive
@@ -24,10 +32,13 @@ import { createSlice } from "@reduxjs/toolkit";
         ,
         quizefinished:(state)=>{
             state.isQuizFinished=!state.isQuizFinished;
+        },
+        Showscore:(state)=>{
+          state.Showscorefinal=false;
         }
 
       }
  })
 
 export default  quizeslice.reducer;
-   export const{addItem1, addItem2, addscore, timeractive, quizefinished}=quizeslice.actions;
+   export const{addItem1, addItem2, addscore, timeractive, quizefinished, Showscore}=quizeslice.actions;
