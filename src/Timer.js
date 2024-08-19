@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Showscore } from './store/quizeSlice';
 
 const Timer = ({ isActive, onTimeUp }) => {
-  const initialTime = 30;
+  const initialTime = 3600;
   const [timeLeft, setTimeLeft] = useState(initialTime);
   const dispatch=useDispatch();
       if(timeLeft==0){
